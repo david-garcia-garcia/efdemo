@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
-using efdemo.demo.Model;
+﻿using efdemo.demo.Model;
 using ETG.SABENTISpro.Application.Core.Module.Session.Model;
 using ETG.SABENTISpro.Models.Core.Session;
+using System;
+using System.Collections.Generic;
+using Z.EntityFramework.Plus;
 
 namespace efdemo.demo
 {
@@ -50,6 +49,10 @@ namespace efdemo.demo
                         options => options.ColumnPrimaryKeyExpression = r => r.id);
 
                     dcs.SaveChanges();
+
+                    QueryFilterContextInterceptor interceptor = new QueryFilterContextInterceptor(dcs);
+
+                    dcs.SaveChanges();
                 }
             }
         }
@@ -81,6 +84,7 @@ CREATE TABLE [dbo].[CORE_SESSIONS](
 	[expires] [bigint] NOT NULL,
 	[uuid] [uniqueidentifier] NOT NULL,
 	[data] [nvarchar](max) NULL,
+    [fk_core_user] [uniqueidentifier] NULL,
  CONSTRAINT [PK_N_CORE_SESSIONS] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

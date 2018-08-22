@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using efdemo.demo;
 using efdemo.demo.Model;
+using EntityFramework.DynamicFilters;
 using ETG.SABENTISpro.Application.Core.Kernel;
 using ETG.SABENTISpro.Application.Core.Module.Session.Model;
 using ETG.SABENTISpro.Models.Core.Session;
@@ -18,9 +19,12 @@ namespace efdemo
             CurrentMappings currentMappings;
             Application app;
 
+            // Here the CORE_USER entity is NOT being ignored
             currentMappings = new CurrentMappings((modelBuilder) =>
             {
                 modelBuilder.Configurations.Add(new CORE_SESSIONConfiguration());
+                modelBuilder.Configurations.Add(new CORE_USERConfiguration());
+                modelBuilder.Filter("test", (CORE_USER b, bool isDeleted) => true, () => false);
             });
 
             GlobalDBConfiguration config = new GlobalDBConfiguration();
@@ -30,14 +34,18 @@ namespace efdemo
             app.ResetDatabase();
             app.DoMerge();
 
+            // Here we ignore both the entity and the field that has the FK
             currentMappings = new CurrentMappings((modelBuilder) =>
             {
                 modelBuilder.Configurations.Add(new CORE_SESSIONConfiguration());
-                modelBuilder.Entity<CORE_SESSION>().Ignore(t => t.uuid);
+                modelBuilder.Entity<CORE_SESSION>().Ignore(t => t.fk_core_user);
+                modelBuilder.Ignore<CORE_USER>();
             });
 
             ZzzUtils.ClearZzzAndEfCaches(ConnectionBuilder.GetConnectionString());
+
             var dcs = new DBModelSession();
+
             app = new Application(currentMappings);
             app.DoMerge();
         }

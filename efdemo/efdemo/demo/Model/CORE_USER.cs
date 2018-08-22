@@ -17,9 +17,9 @@ namespace ETG.SABENTISpro.Models.Core.Session
 {
 
     // CORE_SESSIONS
-    [Table("CORE_SESSIONS", Schema = "dbo")]
+    [Table("CORE_USER", Schema = "dbo")]
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.31.0.0")]
-    public partial class CORE_SESSION
+    public partial class CORE_USER
     {
         /// <summary>
         /// 
@@ -35,7 +35,7 @@ namespace ETG.SABENTISpro.Models.Core.Session
         /// <summary>
         /// 
         /// </summary>
-        [Column(@"started", TypeName = "bigint")]
+        [Column(@"started", Order = 2, TypeName = "bigint")]
         [Required]
         [Display(Name = "Started")]
         public long started { get; set; } // started
@@ -43,7 +43,7 @@ namespace ETG.SABENTISpro.Models.Core.Session
         /// <summary>
         /// 
         /// </summary>
-        [Column(@"lastrefresh", TypeName = "bigint")]
+        [Column(@"lastrefresh", Order = 3, TypeName = "bigint")]
         [Required]
         [Display(Name = "Lastrefresh")]
         public long lastrefresh { get; set; } // lastrefresh
@@ -51,7 +51,7 @@ namespace ETG.SABENTISpro.Models.Core.Session
         /// <summary>
         /// 
         /// </summary>
-        [Column(@"device", TypeName = "nvarchar")]
+        [Column(@"device", Order = 4, TypeName = "nvarchar")]
         [MaxLength(255)]
         [StringLength(255)]
         [Display(Name = "Device")]
@@ -60,7 +60,7 @@ namespace ETG.SABENTISpro.Models.Core.Session
         /// <summary>
         /// 
         /// </summary>
-        [Column(@"expires", TypeName = "bigint")]
+        [Column(@"expires", Order = 5, TypeName = "bigint")]
         [Required]
         [Display(Name = "Expires")]
         public long expires { get; set; } // expires
@@ -68,7 +68,7 @@ namespace ETG.SABENTISpro.Models.Core.Session
         /// <summary>
         /// 
         /// </summary>
-        [Column(@"uuid", TypeName = "uniqueidentifier")]
+        [Column(@"uuid", Order = 6, TypeName = "uniqueidentifier")]
         [Required]
         [Display(Name = "Uuid")]
         public System.Guid uuid { get; set; } // uuid
@@ -76,26 +76,14 @@ namespace ETG.SABENTISpro.Models.Core.Session
         /// <summary>
         /// 
         /// </summary>
-        [Column(@"data", TypeName = "nvarchar(max)")]
+        [Column(@"data", Order = 7, TypeName = "nvarchar(max)")]
         [Display(Name = "Data")]
         public string data { get; set; } // data
-
-        [Column(@"fk_core_user", TypeName = "uniqueidentifier")]
-        [Required]
-        [Display(Name = "Core user ID")]
-        public System.Guid fk_core_user { get; set; } // fk_core_user
-
-        // Foreign keys
-
-        /// <summary>
-        /// Parent CORE_USER pointed by [CORE_PASSWORDHISTORY].([fk_core_user]) (FK_CORE_PASSWORDHISTORY_CORE_USER)
-        /// </summary>
-        [ForeignKey("fk_core_user")] public CORE_USER CORE_USER { get; set; } // FK_CORE_PASSWORDHISTORY_CORE_USER
 
         /// <summary>
         /// 
         /// </summary>
-        public CORE_SESSION()
+        public CORE_USER()
         {
             InitializePartial();
         }

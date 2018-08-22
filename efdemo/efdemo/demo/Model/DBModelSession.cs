@@ -33,5 +33,10 @@ namespace ETG.SABENTISpro.Application.Core.Module.Session.Model
         /// 
         /// </summary>
         public System.Data.Entity.DbSet<CORE_SESSION> CORE_SESSION { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public System.Data.Entity.DbSet<CORE_USER> CORE_USER { get; set; }
     }
 }
